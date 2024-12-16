@@ -7,7 +7,7 @@ import wallets from '@/assets/data.json'
 </script>
 
 <template>
-  <div class="flex flex-col">
+  <div class="flex flex-col bg-tresNeutral-200">
     <header>
       <PageHeader>Accounts</PageHeader>
     </header>
@@ -20,35 +20,43 @@ import wallets from '@/assets/data.json'
       <button class="w-fit">Expand all</button>
       <Suspense>
         <ul class="list-none">
-          <li class="my-[8px] max-w-full" v-for="wallet in wallets">
+          <li class="my-[8px] max-w-full bg-white" v-for="wallet in wallets">
             <Accordion class="max-w-full">
               <AccordionTitle>
-                <header class="flex justify-between w-full p-[16px]">
-                  <div class="flex gap-[16px] max-w-[70%] items-center">
-                    <div>
-                      <img
-                        src="https://s3-alpha-sig.figma.com/img/b059/f2eb/3aaf93145fd62647cb908c5532e06795?Expires=1735516800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=iYsQP9jwJ73mUFklQMJoZRTGD6L4gzfsqJxgNWXiXtowHvSUcSdhfjrMWrzd3CpQfUXXA3igwRD00KzOEuRYwsm5wR6PhBFthOpmlXf3JNTZ8dQvgKEGg0~sOQ1KKaF5E2OZvLsjzxCgsBcczlNE8CGurS71MUcjGJzfQ-~WunpaawOWS2kcKy4XinkM-iR9QCn9NcKe~O2cG1WPxzShF10Cn2YaFs2lWCqpYtbhaQnFfVz5Ph9buEwbpTmwEPc4V5S62~aKpiTtYWT7wJxrVFN9hSOySuDKfNkf7jf9qKd81i06qV9-ZugW0OBfqvEZKL9oL7ZkdK7mpd3fvy4t9A__"
-                        alt="Binance logo"
-                        width="24"
-                        height="24"
-                        class="min-w-[24px] min-h-[24px]"
-                      />
+                <div class="flex flex-col w-full">
+                  <header class="flex justify-between w-full p-[16px]">
+                    <div class="flex gap-[16px] max-w-[70%] items-center">
+                      <div>
+                        <img
+                          src="https://s3-alpha-sig.figma.com/img/b059/f2eb/3aaf93145fd62647cb908c5532e06795?Expires=1735516800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=iYsQP9jwJ73mUFklQMJoZRTGD6L4gzfsqJxgNWXiXtowHvSUcSdhfjrMWrzd3CpQfUXXA3igwRD00KzOEuRYwsm5wR6PhBFthOpmlXf3JNTZ8dQvgKEGg0~sOQ1KKaF5E2OZvLsjzxCgsBcczlNE8CGurS71MUcjGJzfQ-~WunpaawOWS2kcKy4XinkM-iR9QCn9NcKe~O2cG1WPxzShF10Cn2YaFs2lWCqpYtbhaQnFfVz5Ph9buEwbpTmwEPc4V5S62~aKpiTtYWT7wJxrVFN9hSOySuDKfNkf7jf9qKd81i06qV9-ZugW0OBfqvEZKL9oL7ZkdK7mpd3fvy4t9A__"
+                          alt="Binance logo"
+                          width="24"
+                          height="24"
+                          class="min-w-[24px] min-h-[24px]"
+                        />
+                      </div>
+                      <div class="flex flex-col max-w-full">
+                        <h2 class="font-bold w-fit">
+                          {{ wallet.name }}
+                        </h2>
+                        <p
+                          class="text-[14px] w-fit whitespace-nowrap text-tresNeutral-700 max-w-full overflow-hidden text-ellipsis"
+                        >
+                          # {{ wallet.identifier }}
+                        </p>
+                      </div>
                     </div>
-                    <div class="flex flex-col max-w-full">
-                      <h2 class="font-bold w-fit">
-                        {{ wallet.name }}
-                      </h2>
-                      <p
-                        class="text-[14px] w-fit whitespace-nowrap text-tresNeutral-700 max-w-full overflow-hidden text-ellipsis"
-                      >
-                        # {{ wallet.identifier }}
-                      </p>
+                    <div class="text-[18x] leading-[18px] font-bold">
+                      {{ wallet.totalUsdValue }} USD
                     </div>
+                  </header>
+                  <div role="presentation" class="min-h-[1px] bg-tresBlue-300" />
+                  <div class="p-[16px] flex gap-[8px]">
+                    <p>Added: {{ new Date(wallet.createdAt).toLocaleDateString() }}</p>
+                    <div role="presentation" class="min-w-[1px] bg-tresBlue-300"></div>
+                    <p>{{ wallet.assets.length }} assets</p>
                   </div>
-                  <div class="text-[18x] leading-[18px] font-bold">
-                    {{ wallet.totalUsdValue }} USD
-                  </div>
-                </header>
+                </div>
               </AccordionTitle>
               <AccordionContent>
                 {{ wallet.identifier }}
@@ -58,5 +66,17 @@ import wallets from '@/assets/data.json'
         </ul>
       </Suspense>
     </main>
+    <footer class="px-[24px] py-1 bottom-0 sticky h-[57px] bg-tresNeutral-200">
+      <form class="flex justify-between">
+        <div>
+          view
+          <select>
+            <option>10</option>
+          </select>
+          per page
+        </div>
+        <div>showing 3 out of 3 results</div>
+      </form>
+    </footer>
   </div>
 </template>
