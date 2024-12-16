@@ -7,6 +7,13 @@ import IconChevron from '@/components/icons/IconChevron.vue'
 import Wallet from '@/components/Wallet/Wallet.vue'
 import wallets from '@/assets/data.json'
 import type { WalletType } from '@/types/generic.types'
+import { ref } from 'vue'
+
+const open = ref(false)
+
+function toggle() {
+  open.value = !open.value
+}
 </script>
 
 <template>
@@ -21,21 +28,20 @@ import type { WalletType } from '@/types/generic.types'
         <p>Network</p>
       </section>
       <section class="flex justify-between">
-        <button class="flex items-center gap-[11.5px] w-fit">
-          <IconChevron />
-          <p class="text-tresNeutral-800 text-[14px]">Expand all</p>
+        <button @click="toggle" class="flex items-center gap-[11.5px] w-fit">
+          <IconChevron :data-active="open" class="data-[active=true]:rotate-90" />
+          <p class="text-tresNeutral-800 text-[14px]" v-if="open == true">Collapse all</p>
+          <p class="text-tresNeutral-800 text-[14px]" v-else>Expand all</p>
         </button>
         <p class="text-tresNeutral-800 text-[12px] font-normal leading-[16.8px]">
           {{ wallets.length }} wallets
         </p>
       </section>
-      <Suspense>
-        <ul class="list-none">
-          <li class="my-[8px] max-w-full bg-white" v-for="wallet in wallets as WalletType[]">
-            <Wallet :data="wallet" />
-          </li>
-        </ul>
-      </Suspense>
+      <ul class="list-none">
+        <li class="my-[8px] max-w-full bg-white" v-for="wallet in wallets as WalletType[]">
+          <Wallet :key="wallet.id" :data="wallet" :open="open" />
+        </li>
+      </ul>
     </main>
     <footer class="px-[24px] py-1 bottom-0 sticky h-[57px] bg-tresNeutral-200">
       <form class="flex justify-between">
