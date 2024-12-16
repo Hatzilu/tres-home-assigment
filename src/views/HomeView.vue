@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import PageHeader from '@/components/PageHeader/PageHeader.vue'
 import Accordion from '@/components/Accordion/Accordion.vue'
 import AccordionTitle from '@/components/Accordion/AccordionTitle.vue'
 import AccordionContent from '@/components/Accordion/AccordionContent.vue'
@@ -42,7 +41,11 @@ function handlePageChange(newPage: number) {
 <template>
   <div class="flex flex-col bg-tresNeutral-200">
     <header>
-      <PageHeader>Accounts</PageHeader>
+      <h1
+        class="flex flex-col py-[12px] px-[24px] text-[16px] leading-[24px] font-bold text-tresNeutral-1100 border-b border-tresBlue-300"
+      >
+        Accounts
+      </h1>
     </header>
     <main class="flex gap-[16px] flex-col py-[16px] px-[24px]">
       <section class="flex gap-[10px]">
@@ -76,17 +79,23 @@ function handlePageChange(newPage: number) {
     </main>
     <footer class="px-[24px] py-1 bottom-0 sticky h-[57px] bg-tresNeutral-200">
       <div class="flex justify-between">
-        <div>
+        <div class="text-[#8E8F98] text-[14px] leading-[21px] font-normal">
           view
-          <select :value="countPerPage" @change="handleWalletCountChange">
+          <select
+            class="rounded-[4px] p-[8px] border border-[#D2D3D7] bg-transparent"
+            :value="countPerPage"
+            @change="handleWalletCountChange"
+          >
             <option v-for="option in WALLETS_PER_PAGE_OPTIONS" :key="option" :value="option">
               {{ option }}
             </option>
           </select>
           per page
         </div>
-        <div>showing {{ currentItems }} out of {{ wallets.length }} results</div>
         <div class="flex gap-[5px] items-center">
+          <p class="text-[#8E8F98] text-[14px] leading-[21px] font-normal mr-[19px]">
+            showing {{ currentItems }} out of {{ wallets.length }} results
+          </p>
           <button
             class="disabled:cursor-not-allowed group"
             :disabled="pageIndex - 1 < 0"
