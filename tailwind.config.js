@@ -7,6 +7,7 @@ export default {
     colors: {
       ...colors,
       tresBlue: {
+        200: '#EFF4FF',
         300: '#DEEAFF',
       },
       tresNeutral: {
