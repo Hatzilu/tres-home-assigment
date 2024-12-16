@@ -3,6 +3,7 @@ import PageHeader from '@/components/PageHeader/PageHeader.vue'
 import Accordion from '@/components/Accordion/Accordion.vue'
 import AccordionTitle from '@/components/Accordion/AccordionTitle.vue'
 import AccordionContent from '@/components/Accordion/AccordionContent.vue'
+import IconChevron from '@/components/icons/IconChevron.vue'
 import wallets from '@/assets/data.json'
 </script>
 
@@ -17,7 +18,15 @@ import wallets from '@/assets/data.json'
         <p>Asset</p>
         <p>Network</p>
       </section>
-      <button class="w-fit">Expand all</button>
+      <section class="flex justify-between">
+        <button class="flex items-center gap-[11.5px] w-fit">
+          <IconChevron />
+          <p class="text-tresNeutral-800 text-[14px]">Expand all</p>
+        </button>
+        <p class="text-tresNeutral-800 text-[12px] font-normal leading-[16.8px]">
+          {{ wallets.length }} wallets
+        </p>
+      </section>
       <Suspense>
         <ul class="list-none">
           <li class="my-[8px] max-w-full bg-white" v-for="wallet in wallets">
@@ -54,7 +63,12 @@ import wallets from '@/assets/data.json'
                   <div class="p-[16px] flex gap-[8px]">
                     <p>Added: {{ new Date(wallet.createdAt).toLocaleDateString() }}</p>
                     <div role="presentation" class="min-w-[1px] bg-tresBlue-300"></div>
-                    <p>{{ wallet.assets.length }} assets</p>
+                    <p
+                      class="bg-tresNeutral-400 px-[8px] py-[4px] rounded-[4px] text-[12px] leading=[16.8x]"
+                    >
+                      {{ wallet.assets.length }}
+                      {{ wallet.assets.length === 1 ? 'asset' : 'assets' }}
+                    </p>
                   </div>
                 </div>
               </AccordionTitle>
