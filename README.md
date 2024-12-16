@@ -1,6 +1,9 @@
 # tres-home-assignment
 
-This template should help get you started developing with Vue 3 in Vite.
+This is my home assignment for Tres.Finance.
+this application was bootstrapped using the vue CLI.
+below are the instructions on running the application.
+For security reasons, I did not commit the provided mock data to the repository, so before running the project, please place the mock data file under `src/assets` under the name `data.json`.
 
 ## Recommended IDE Setup
 
