@@ -12,6 +12,12 @@ const props = defineProps<{ data: WalletType; open: boolean }>()
 
 const wallet = props.data
 const isOpen = computed(() => props.open)
+
+const addedDate = new Intl.DateTimeFormat('en-US', {
+  month: 'short',
+  year: '2-digit',
+  day: '2-digit',
+}).format(new Date(props.data.createdAt))
 </script>
 
 <template>
@@ -47,7 +53,7 @@ const isOpen = computed(() => props.open)
           </header>
           <div role="presentation" class="min-h-[1px] bg-tresBlue-300" />
           <div class="p-[16px] flex gap-[8px]">
-            <p>Added: {{ new Date(wallet.createdAt).toLocaleDateString() }}</p>
+            <p>Added: {{ addedDate }}</p>
             <div role="presentation" class="min-w-[1px] bg-tresBlue-300"></div>
             <p
               class="bg-tresNeutral-400 px-[8px] py-[4px] rounded-[4px] text-[12px] leading=[16.8x]"
