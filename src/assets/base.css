@@ -23,9 +23,9 @@
 
 /* semantic color variables for this project */
 :root {
-  --color-background: #fff;
-  --color-background-soft: #fff;
-  --color-background-mute: #fff;
+  --color-background: #fafafc;
+  --color-background-soft: #fafafc;
+  --color-background-mute: #fafafc;
 
   --color-border: var(--vt-c-divider-light-2);
   --color-border-hover: var(--vt-c-divider-light-1);
