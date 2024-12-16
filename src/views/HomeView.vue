@@ -7,12 +7,35 @@ import IconChevron from '@/components/icons/IconChevron.vue'
 import Wallet from '@/components/Wallet/Wallet.vue'
 import wallets from '@/assets/data.json'
 import type { WalletType } from '@/types/generic.types'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+import { WALLETS_PER_PAGE_OPTIONS } from '@/consts/HomeView.consts'
+import Pagination from '@/components/Pagination/Pagination.vue'
 
 const open = ref(false)
+const countPerPage = ref(10)
+const pageIndex = ref(0)
 
-function toggle() {
+// show the current number of items or the limit if there are more
+const currentItems = computed(() =>
+  Math.min(countPerPage.value * (pageIndex.value + 1), wallets.length),
+)
+
+function handleTogglingAllWallets() {
   open.value = !open.value
+}
+
+function handleWalletCountChange(event: Event) {
+  if (!event.target) {
+    return
+  }
+  const target = event.target as HTMLSelectElement
+  countPerPage.value = Number(target.value)
+  // reset the page index to avoid accidentally showing a non-existent page
+  pageIndex.value = 0
+}
+
+function handlePageChange(newPage: number) {
+  pageIndex.value = newPage
 }
 </script>
 
@@ -27,8 +50,9 @@ function toggle() {
         <p>Asset</p>
         <p>Network</p>
       </section>
+
       <section class="flex justify-between">
-        <button @click="toggle" class="flex items-center gap-[11.5px] w-fit">
+        <button @click="handleTogglingAllWallets" class="flex items-center gap-[11.5px] w-fit">
           <IconChevron :data-active="open" class="data-[active=true]:rotate-90" />
           <p class="text-tresNeutral-800 text-[14px]" v-if="open == true">Collapse all</p>
           <p class="text-tresNeutral-800 text-[14px]" v-else>Expand all</p>
@@ -37,23 +61,56 @@ function toggle() {
           {{ wallets.length }} wallets
         </p>
       </section>
+
       <ul class="list-none">
-        <li class="my-[8px] max-w-full bg-white" v-for="wallet in wallets as WalletType[]">
+        <li
+          class="my-[8px] max-w-full bg-white"
+          v-for="(wallet, i) in wallets.slice(
+            countPerPage * pageIndex,
+            countPerPage * pageIndex + countPerPage,
+          ) as WalletType[]"
+        >
           <Wallet :key="wallet.id" :data="wallet" :open="open" />
         </li>
       </ul>
     </main>
     <footer class="px-[24px] py-1 bottom-0 sticky h-[57px] bg-tresNeutral-200">
-      <form class="flex justify-between">
+      <div class="flex justify-between">
         <div>
           view
-          <select>
-            <option>10</option>
+          <select :value="countPerPage" @change="handleWalletCountChange">
+            <option v-for="option in WALLETS_PER_PAGE_OPTIONS" :key="option" :value="option">
+              {{ option }}
+            </option>
           </select>
           per page
         </div>
-        <div>showing 3 out of 3 results</div>
-      </form>
+        <div>showing {{ currentItems }} out of {{ wallets.length }} results</div>
+        <div class="flex gap-[5px] items-center">
+          <button
+            class="disabled:cursor-not-allowed group"
+            :disabled="pageIndex - 1 < 0"
+            aria-label="Previous page"
+            @click="pageIndex--"
+          >
+            <IconChevron width="16" height="16" class="rotate-180 group-disabled:opacity-50" />
+          </button>
+          <Pagination
+            :pageIndex="pageIndex"
+            :total="wallets.length"
+            :countPerPage="countPerPage"
+            :onPageChanged="handlePageChange"
+          />
+          <button
+            :disabled="pageIndex + 1 >= wallets.length / countPerPage"
+            aria-label="Next page"
+            @click="pageIndex++"
+            class="disabled:cursor-not-allowed"
+          >
+            <IconChevron width="16" height="16" class="group-disabled:opacity-50" />
+          </button>
+        </div>
+      </div>
     </footer>
   </div>
 </template>
