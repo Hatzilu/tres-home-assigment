@@ -20,24 +20,29 @@ import wallets from '@/assets/data.json'
       <button class="w-fit">Expand all</button>
       <Suspense>
         <ul class="list-none">
-          <li class="my-[8px]" v-for="wallet in wallets">
-            <Accordion>
+          <li class="my-[8px] max-w-full" v-for="wallet in wallets">
+            <Accordion class="max-w-full">
               <AccordionTitle>
                 <header class="flex justify-between w-full p-[16px]">
-                  <div class="flex gap-[16px] items-center">
+                  <div class="flex gap-[16px] max-w-[70%] items-center">
                     <div>
                       <img
                         src="https://s3-alpha-sig.figma.com/img/b059/f2eb/3aaf93145fd62647cb908c5532e06795?Expires=1735516800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=iYsQP9jwJ73mUFklQMJoZRTGD6L4gzfsqJxgNWXiXtowHvSUcSdhfjrMWrzd3CpQfUXXA3igwRD00KzOEuRYwsm5wR6PhBFthOpmlXf3JNTZ8dQvgKEGg0~sOQ1KKaF5E2OZvLsjzxCgsBcczlNE8CGurS71MUcjGJzfQ-~WunpaawOWS2kcKy4XinkM-iR9QCn9NcKe~O2cG1WPxzShF10Cn2YaFs2lWCqpYtbhaQnFfVz5Ph9buEwbpTmwEPc4V5S62~aKpiTtYWT7wJxrVFN9hSOySuDKfNkf7jf9qKd81i06qV9-ZugW0OBfqvEZKL9oL7ZkdK7mpd3fvy4t9A__"
                         alt="Binance logo"
                         width="24"
                         height="24"
+                        class="min-w-[24px] min-h-[24px]"
                       />
                     </div>
-                    <div class="flex flex-col">
-                      <h2 class="font-bold">
+                    <div class="flex flex-col max-w-full">
+                      <h2 class="font-bold w-fit">
                         {{ wallet.name }}
                       </h2>
-                      <p class="text-[14px] text-tresNeutral-700"># {{ wallet.identifier }}</p>
+                      <p
+                        class="text-[14px] w-fit whitespace-nowrap text-tresNeutral-700 max-w-full overflow-hidden text-ellipsis"
+                      >
+                        # {{ wallet.identifier }}
+                      </p>
                     </div>
                   </div>
                   <div class="text-[18x] leading-[18px] font-bold">
