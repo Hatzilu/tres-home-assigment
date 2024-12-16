@@ -1,12 +1,5 @@
 <template>
-  <summary>
+  <summary class="cursor-pointer flex">
     <slot />
   </summary>
 </template>
-
-<style lang="css" scoped>
-summary {
-  cursor: pointer;
-  display: flex;
-}
-</style>
