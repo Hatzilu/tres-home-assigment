@@ -1,21 +1,8 @@
-<script setup></script>
-
-<template>
-  <h1 class="header"><slot /></h1>
+<template lang="html">
+  <h1
+    class="flex flex-col py-[12px] px-[24px] text-[16px] leading-[24px] font-bold text-neutral-100"
+  >
+    <slot />
+  </h1>
+  <hr />
 </template>
-
-<style scoped>
-.header {
-  display: flex;
-  flex-direction: column;
-  padding: 12px 24px 12px 24px;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 700;
-}
-
-.header::after {
-  display: block;
-  border: 1px solid #212121;
-}
-</style>
