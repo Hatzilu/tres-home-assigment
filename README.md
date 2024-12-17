@@ -5,6 +5,8 @@ this application was bootstrapped using the vue CLI.
 below are the instructions on running the application.
 For security reasons, I did not commit the provided mock data to the repository, so before running the project, please place the mock data file under `src/assets` under the name `data.json`.
 
+i also used the [Bun runtime](https://bun.sh/) to work on the project, so to avoid any potential errors, please run the project using [Bun.](https://bun.sh/)
+
 ## Recommended IDE Setup
 
 [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
