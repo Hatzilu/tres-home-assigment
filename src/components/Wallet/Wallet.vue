@@ -11,7 +11,7 @@ import TooltipProvider from '../ui/tooltip/TooltipProvider.vue'
 import Tooltip from '../ui/tooltip/Tooltip.vue'
 import TooltipTrigger from '../ui/tooltip/TooltipTrigger.vue'
 import TooltipContent from '../ui/tooltip/TooltipContent.vue'
-import IconCopy from '../icons/IconCopy.vue'
+import CopyButton from '../CopyButton/CopyButton.vue'
 
 const props = defineProps<{ data: WalletType; open: boolean }>()
 
@@ -24,9 +24,7 @@ const addedDate = new Intl.DateTimeFormat('en-US', {
   day: '2-digit',
 }).format(new Date(props.data.createdAt))
 
-function copyIdToClipboard() {
-  window.navigator.clipboard.writeText(wallet.identifier)
-}
+const truncatedIdentifier = `${wallet.identifier.slice(0, 5)}...${wallet.identifier.slice(wallet.identifier.length - 1 - 5, wallet.identifier.length - 1)}`
 </script>
 
 <template>
@@ -55,22 +53,16 @@ function copyIdToClipboard() {
                       <p
                         class="text-[14px] w-fit whitespace-nowrap text-tresNeutral-700 max-w-full overflow-hidden text-ellipsis"
                       >
-                        # {{ wallet.identifier.slice(0, 5) }}...{{
-                          wallet.identifier.slice(
-                            wallet.identifier.length - 1 - 5,
-                            wallet.identifier.length - 1,
-                          )
-                        }}
+                        # {{ truncatedIdentifier }}
                       </p>
                     </TooltipTrigger>
                     <TooltipContent>
-                      <div class="flex">
-                        <p class="pr-[8px] border-r border-tresNeutral-800 mr-[8px]">
+                      <div class="flex gap-[8px] items-center">
+                        <p class="leading-[21px] text-[14px]">
                           {{ wallet.identifier }}
                         </p>
-                        <button @click="copyIdToClipboard">
-                          <IconCopy width="16" height="16" />
-                        </button>
+                        <div class="min-w-[1px] bg-tresNeutral-800 h-[10.5px]"></div>
+                        <CopyButton :content="wallet.identifier" />
                       </div>
                     </TooltipContent>
                   </Tooltip>
