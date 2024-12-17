@@ -7,6 +7,11 @@ import IconUsd from '../icons/IconUsd.vue'
 import { numberToCurrencyString as numberToCurrencyString } from '@/utils/currency.utils'
 import IconInfo from '../icons/IconInfo.vue'
 import { computed } from 'vue'
+import TooltipProvider from '../ui/tooltip/TooltipProvider.vue'
+import Tooltip from '../ui/tooltip/Tooltip.vue'
+import TooltipTrigger from '../ui/tooltip/TooltipTrigger.vue'
+import TooltipContent from '../ui/tooltip/TooltipContent.vue'
+import IconCopy from '../icons/IconCopy.vue'
 
 const props = defineProps<{ data: WalletType; open: boolean }>()
 
@@ -18,6 +23,10 @@ const addedDate = new Intl.DateTimeFormat('en-US', {
   year: '2-digit',
   day: '2-digit',
 }).format(new Date(props.data.createdAt))
+
+function copyIdToClipboard() {
+  window.navigator.clipboard.writeText(wallet.identifier)
+}
 </script>
 
 <template>
@@ -40,16 +49,32 @@ const addedDate = new Intl.DateTimeFormat('en-US', {
                 <h2 class="font-bold w-fit">
                   {{ wallet.name }}
                 </h2>
-                <p
-                  class="text-[14px] w-fit whitespace-nowrap text-tresNeutral-700 max-w-full overflow-hidden text-ellipsis"
-                >
-                  # {{ wallet.identifier.slice(0, 5) }}...{{
-                    wallet.identifier.slice(
-                      wallet.identifier.length - 1 - 5,
-                      wallet.identifier.length - 1,
-                    )
-                  }}
-                </p>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <p
+                        class="text-[14px] w-fit whitespace-nowrap text-tresNeutral-700 max-w-full overflow-hidden text-ellipsis"
+                      >
+                        # {{ wallet.identifier.slice(0, 5) }}...{{
+                          wallet.identifier.slice(
+                            wallet.identifier.length - 1 - 5,
+                            wallet.identifier.length - 1,
+                          )
+                        }}
+                      </p>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <div class="flex">
+                        <p class="pr-[8px] border-r border-tresNeutral-800 mr-[8px]">
+                          {{ wallet.identifier }}
+                        </p>
+                        <button @click="copyIdToClipboard">
+                          <IconCopy width="16" height="16" />
+                        </button>
+                      </div>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </div>
             </div>
             <div class="text-[18x] leading-[18px] font-bold">

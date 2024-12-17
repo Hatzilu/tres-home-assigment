@@ -42,6 +42,7 @@ function handlePageChange(newPage: number) {
   <div class="flex flex-col bg-tresNeutral-200">
     <header>
       <h1
+        v-tooltip="pageIndex"
         class="flex flex-col py-[12px] px-[24px] text-[16px] leading-[24px] font-bold text-tresNeutral-1100 border-b border-tresBlue-300"
       >
         Accounts
