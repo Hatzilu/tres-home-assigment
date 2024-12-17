@@ -43,7 +43,12 @@ const addedDate = new Intl.DateTimeFormat('en-US', {
                 <p
                   class="text-[14px] w-fit whitespace-nowrap text-tresNeutral-700 max-w-full overflow-hidden text-ellipsis"
                 >
-                  # {{ wallet.identifier }}
+                  # {{ wallet.identifier.slice(0, 5) }}...{{
+                    wallet.identifier.slice(
+                      wallet.identifier.length - 1 - 5,
+                      wallet.identifier.length - 1,
+                    )
+                  }}
                 </p>
               </div>
             </div>
