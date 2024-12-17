@@ -12,6 +12,7 @@ import Tooltip from '../ui/tooltip/Tooltip.vue'
 import TooltipTrigger from '../ui/tooltip/TooltipTrigger.vue'
 import TooltipContent from '../ui/tooltip/TooltipContent.vue'
 import CopyButton from '../CopyButton/CopyButton.vue'
+import FormattedCurrency from '../FormattedCurrency/FormattedCurrency.vue'
 
 const props = defineProps<{ data: WalletType; open: boolean }>()
 
@@ -61,7 +62,6 @@ const truncatedIdentifier = `${wallet.identifier.slice(0, 5)}...${wallet.identif
                         <p class="leading-[21px] text-[14px]">
                           {{ wallet.identifier }}
                         </p>
-                        <div class="min-w-[1px] bg-tresNeutral-800 h-[10.5px]"></div>
                         <CopyButton :content="wallet.identifier" />
                       </div>
                     </TooltipContent>
@@ -69,9 +69,10 @@ const truncatedIdentifier = `${wallet.identifier.slice(0, 5)}...${wallet.identif
                 </TooltipProvider>
               </div>
             </div>
-            <div class="text-[18x] leading-[18px] font-bold">
-              {{ numberToCurrencyString(wallet.totalUsdValue) }} USD
-            </div>
+            <FormattedCurrency
+              class="text-[18x] leading-[18px] font-bold"
+              :currency="wallet.totalUsdValue"
+            />
           </header>
           <div role="presentation" class="min-h-[1px] bg-tresBlue-300" />
           <div class="p-[16px] flex gap-[8px]">
@@ -123,13 +124,29 @@ const truncatedIdentifier = `${wallet.identifier.slice(0, 5)}...${wallet.identif
                   </p>
                 </div>
               </td>
-              <td class="p-[12px] border border-tresBlue-300">{{ asset.asset.network }}</td>
+              <td class="p-[12px] border border-tresBlue-300">
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <p>{{ asset.asset.network }}</p>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <div class="flex items-center">
+                        <p class="text-[14px] leading-[21px]">
+                          Contract: {{ asset.asset.identifier }}
+                        </p>
+                        <CopyButton :content="asset.asset.identifier" />
+                      </div>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </td>
               <td class="p-[12px] border border-tresBlue-300">
                 <div class="flex flex-col">
                   <p>{{ numberToCurrencyString(asset.assetAmount) }} {{ asset.asset.symbol }}</p>
-                  <div class="flex gap-[4px] items-center">
+                  <div class="text-tresNeutral-700 flex gap-[4px] items-center h-fit">
                     <IconUsd />
-                    <p class="text-tresNeutral-700">
+                    <p class="text-[14px] leading-[21px]">
                       {{ numberToCurrencyString(asset.assetUsdValue?.value || 0) }} USD
                     </p>
                   </div>
@@ -151,7 +168,13 @@ const truncatedIdentifier = `${wallet.identifier.slice(0, 5)}...${wallet.identif
                 />
               </td>
               <td class="p-[12px] border border-tresBlue-300">
-                {{ numberToCurrencyString(wallet.totalUsdValue) }} USD
+                <div class="text-[#1F1F1F] flex gap-[8px] items-center h-fit">
+                  <IconUsd />
+                  <FormattedCurrency
+                    class="font-bold text-[14px] leading-[21px]"
+                    :currency="wallet.totalUsdValue"
+                  />
+                </div>
               </td>
             </tr>
           </tbody>
