@@ -28,6 +28,7 @@ module.exports = {
       tresNeutral: {
         200: '#FAFAFC',
         400: '#F0F1F5',
+        500: '#D2D3D7',
         700: '#8E8F98',
         800: '#5A5A5E',
         900: '#35383C',

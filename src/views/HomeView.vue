@@ -9,6 +9,9 @@ import type { WalletType } from '@/types/generic.types'
 import { computed, ref } from 'vue'
 import { WALLETS_PER_PAGE_OPTIONS } from '@/consts/HomeView.consts'
 import Pagination from '@/components/Pagination/Pagination.vue'
+import IconHashtag from '@/components/icons/IconHashtag.vue'
+import IconUsd from '@/components/icons/IconUsd.vue'
+import IconNetwork from '@/components/icons/iconNetwork.vue'
 
 const open = ref(false)
 const countPerPage = ref(10)
@@ -50,9 +53,27 @@ function handlePageChange(newPage: number) {
     </header>
     <main class="flex gap-[16px] flex-col py-[16px] px-[24px]">
       <section class="flex gap-[10px]">
-        <p>Name/Identifier</p>
-        <p>Asset</p>
-        <p>Network</p>
+        <button
+          class="rounded-full border border-tresNeutral-500 p-[8px] flex items-center gap-[4px] text-tresNeutral-800"
+        >
+          <IconHashtag width="16" height="16" class="text-tresNeutral-800" />
+          <p class="text-[14px] leading-[16px] text-tresNeutral-1100">Name/Identifier</p>
+          <IconChevron width="8" height="8" class="rotate-90" />
+        </button>
+        <button
+          class="rounded-full border border-tresNeutral-500 p-[8px] flex items-center gap-[4px] text-tresNeutral-800"
+        >
+          <IconUsd width="16" height="16" class="text-tresNeutral-700" />
+          <p class="text-[14px] leading-[16px] text-tresNeutral-1100">Asset</p>
+          <IconChevron width="8" height="8" class="rotate-90" />
+        </button>
+        <button
+          class="rounded-full border border-tresNeutral-500 p-[8px] flex items-center gap-[4px] text-tresNeutral-800"
+        >
+          <IconNetwork width="12" height="12" class="text-tresNeutral-800" />
+          <p class="text-[14px] leading-[16px] text-tresNeutral-1100">Network</p>
+          <IconChevron width="8" height="8" class="rotate-90" />
+        </button>
       </section>
 
       <section class="flex justify-between">
@@ -97,28 +118,30 @@ function handlePageChange(newPage: number) {
           <p class="text-[#8E8F98] text-[14px] leading-[21px] font-normal mr-[19px]">
             showing {{ currentItems }} out of {{ wallets.length }} results
           </p>
-          <button
-            class="disabled:cursor-not-allowed group"
-            :disabled="pageIndex - 1 < 0"
-            aria-label="Previous page"
-            @click="pageIndex--"
-          >
-            <IconChevron width="16" height="16" class="rotate-180 group-disabled:opacity-50" />
-          </button>
-          <Pagination
-            :pageIndex="pageIndex"
-            :total="wallets.length"
-            :countPerPage="countPerPage"
-            :onPageChanged="handlePageChange"
-          />
-          <button
-            :disabled="pageIndex + 1 >= wallets.length / countPerPage"
-            aria-label="Next page"
-            @click="pageIndex++"
-            class="disabled:cursor-not-allowed"
-          >
-            <IconChevron width="16" height="16" class="group-disabled:opacity-50" />
-          </button>
+          <div class="flex gap-[2.5px] items-center">
+            <button
+              class="disabled:cursor-not-allowed group"
+              :disabled="pageIndex - 1 < 0"
+              aria-label="Previous page"
+              @click="pageIndex--"
+            >
+              <IconChevron width="9" height="9" class="rotate-180 group-disabled:opacity-50" />
+            </button>
+            <Pagination
+              :pageIndex="pageIndex"
+              :total="wallets.length"
+              :countPerPage="countPerPage"
+              :onPageChanged="handlePageChange"
+            />
+            <button
+              :disabled="pageIndex + 1 >= wallets.length / countPerPage"
+              aria-label="Next page"
+              @click="pageIndex++"
+              class="disabled:cursor-not-allowed"
+            >
+              <IconChevron width="9" height="9" class="group-disabled:opacity-50" />
+            </button>
+          </div>
         </div>
       </div>
     </footer>
