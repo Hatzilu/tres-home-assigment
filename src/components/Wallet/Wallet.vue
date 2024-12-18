@@ -35,7 +35,7 @@ const truncatedIdentifier = `${wallet.identifier.slice(0, 5)}...${wallet.identif
         <div class="flex flex-col w-full">
           <header class="flex justify-between w-full p-[16px]">
             <div class="flex gap-[16px] max-w-[70%] items-center">
-              <div>
+              <div class="relative flex">
                 <img
                   src="https://s3-alpha-sig.figma.com/img/b059/f2eb/3aaf93145fd62647cb908c5532e06795?Expires=1735516800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=iYsQP9jwJ73mUFklQMJoZRTGD6L4gzfsqJxgNWXiXtowHvSUcSdhfjrMWrzd3CpQfUXXA3igwRD00KzOEuRYwsm5wR6PhBFthOpmlXf3JNTZ8dQvgKEGg0~sOQ1KKaF5E2OZvLsjzxCgsBcczlNE8CGurS71MUcjGJzfQ-~WunpaawOWS2kcKy4XinkM-iR9QCn9NcKe~O2cG1WPxzShF10Cn2YaFs2lWCqpYtbhaQnFfVz5Ph9buEwbpTmwEPc4V5S62~aKpiTtYWT7wJxrVFN9hSOySuDKfNkf7jf9qKd81i06qV9-ZugW0OBfqvEZKL9oL7ZkdK7mpd3fvy4t9A__"
                   alt="Binance logo"
@@ -43,6 +43,24 @@ const truncatedIdentifier = `${wallet.identifier.slice(0, 5)}...${wallet.identif
                   height="24"
                   class="min-w-[24px] min-h-[24px]"
                 />
+                <img
+                  v-if="wallet.assets.length > 1"
+                  src="https://s3-alpha-sig.figma.com/img/b059/f2eb/3aaf93145fd62647cb908c5532e06795?Expires=1735516800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=iYsQP9jwJ73mUFklQMJoZRTGD6L4gzfsqJxgNWXiXtowHvSUcSdhfjrMWrzd3CpQfUXXA3igwRD00KzOEuRYwsm5wR6PhBFthOpmlXf3JNTZ8dQvgKEGg0~sOQ1KKaF5E2OZvLsjzxCgsBcczlNE8CGurS71MUcjGJzfQ-~WunpaawOWS2kcKy4XinkM-iR9QCn9NcKe~O2cG1WPxzShF10Cn2YaFs2lWCqpYtbhaQnFfVz5Ph9buEwbpTmwEPc4V5S62~aKpiTtYWT7wJxrVFN9hSOySuDKfNkf7jf9qKd81i06qV9-ZugW0OBfqvEZKL9oL7ZkdK7mpd3fvy4t9A__"
+                  :alt="wallet.assets[0].name"
+                  width="24"
+                  height="24"
+                  class="relative top-0 right-[25%] min-w-[24px] min-h-[24px]"
+                />
+                <div
+                  v-if="wallet.assets.length > 2"
+                  src="https://s3-alpha-sig.figma.com/img/b059/f2eb/3aaf93145fd62647cb908c5532e06795?Expires=1735516800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=iYsQP9jwJ73mUFklQMJoZRTGD6L4gzfsqJxgNWXiXtowHvSUcSdhfjrMWrzd3CpQfUXXA3igwRD00KzOEuRYwsm5wR6PhBFthOpmlXf3JNTZ8dQvgKEGg0~sOQ1KKaF5E2OZvLsjzxCgsBcczlNE8CGurS71MUcjGJzfQ-~WunpaawOWS2kcKy4XinkM-iR9QCn9NcKe~O2cG1WPxzShF10Cn2YaFs2lWCqpYtbhaQnFfVz5Ph9buEwbpTmwEPc4V5S62~aKpiTtYWT7wJxrVFN9hSOySuDKfNkf7jf9qKd81i06qV9-ZugW0OBfqvEZKL9oL7ZkdK7mpd3fvy4t9A__"
+                  :alt="wallet.assets[1].name"
+                  width="24"
+                  height="24"
+                  class="absolute right-0 top-0 flex items-center justify-center border rounded-full border-tresBlue-300 bg-white min-w-[24px] min-h-[24px]"
+                >
+                  <p class="text-[10px]">+{{ wallet.assets.length - 2 }}</p>
+                </div>
               </div>
               <div class="flex flex-col max-w-full">
                 <h2 class="font-bold w-fit">
