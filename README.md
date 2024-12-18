@@ -10,7 +10,7 @@ i also used the [Bun runtime](https://bun.sh/) to work on the project, so to avo
 # key decisions and trade-offs
 
 - I think the most difficult part of developing the application has been keeping with a high level of quality while also trying to quickly learn and adapt to a new framework.
-- I decided to make the footer of the page sticky. when developing the application, it felt very weird to have to scroll all the way to the bottom of the page just to change between pages, or change the amout of wallets per page. I think keeping the footer in the user's view feels more intuitive. I wanted to leave a comment on the figma page about it but i don't have permissions.
+- I decided to make the footer of the page sticky. when developing the application, it felt very weird to have to scroll all the way to the bottom of the page just to change between pages, or change the amout of wallets per page. I think keeping the footer in the user's view feels more intuitive. I wanted to leave a comment on the figma page about it but I don't have permissions.
 - I eventually decided to use ShadCN for components that may require additional logic to implement, such as the tooltip, to avoid spending too much time.
 - I implemented the accordion component of the wallets using the native `<details>` element and it's ability to open and close without requiring any javascript or css. I believe this leads to a better experience in cases where the user cannot enable javascript on their device, as it keeps the website functional and won't cause the information to be unavailable to the user.
 
